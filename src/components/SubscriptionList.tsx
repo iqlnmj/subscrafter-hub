@@ -6,11 +6,13 @@ import SubscriptionCard from './SubscriptionCard';
 interface SubscriptionListProps {
   subscriptions: Subscription[];
   onSelect?: (subscription: Subscription) => void;
+  onDelete?: (id: string) => void;
 }
 
 const SubscriptionList: React.FC<SubscriptionListProps> = ({ 
   subscriptions,
-  onSelect
+  onSelect,
+  onDelete
 }) => {
   const [filter, setFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('name');
@@ -75,6 +77,7 @@ const SubscriptionList: React.FC<SubscriptionListProps> = ({
               <SubscriptionCard 
                 subscription={subscription} 
                 onClick={onSelect}
+                onDelete={onDelete ? () => onDelete(subscription.id) : undefined}
               />
             </div>
           ))}

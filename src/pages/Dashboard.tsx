@@ -7,7 +7,8 @@ import SubscriptionStats from '@/components/SubscriptionStats';
 import AddSubscriptionForm from '@/components/AddSubscriptionForm';
 import { mockSubscriptions, calculateSubscriptionStats } from '@/utils/mockData';
 import { toast } from '@/components/ui/use-toast';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Button } from '@/components/ui/button';
+import { PlusIcon, ArrowLeftIcon } from 'lucide-react';
 
 const Dashboard = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -24,6 +25,11 @@ const Dashboard = () => {
         setStats(calculateSubscriptionStats(mockSubscriptions));
       } catch (err) {
         console.error('Error loading mock data:', err);
+        toast({
+          title: "Error loading data",
+          description: "There was a problem loading your subscription data.",
+          variant: "destructive",
+        });
       } finally {
         setLoading(false);
       }
@@ -94,26 +100,24 @@ const Dashboard = () => {
     <div className="min-h-screen flex flex-col bg-secondary/30">
       <Navbar />
       
-      <main className="flex-1 pt-16 w-full">
-        <div className="container max-w-7xl mx-auto px-4 py-8">
+      <div className="flex-1 pt-16 overflow-hidden">
+        <div className="container max-w-7xl mx-auto px-4 py-8 h-full overflow-y-auto">
           <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold">Subscription Dashboard</h1>
               <p className="text-muted-foreground">Track and manage all your subscriptions</p>
             </div>
             
-            <button
+            <Button
               onClick={() => {
                 setShowAddForm(true);
                 setEditingSubscription(null);
               }}
-              className="inline-flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              <PlusIcon className="h-4 w-4 mr-2" />
               Add Subscription
-            </button>
+            </Button>
           </div>
           
           <div className="mb-8 animate-fade-in">
@@ -136,9 +140,7 @@ const Dashboard = () => {
                     }}
                     className="mr-4 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m15 18-6-6 6-6" />
-                    </svg>
+                    <ArrowLeftIcon className="h-5 w-5" />
                   </button>
                   <h2 className="text-xl font-semibold">
                     {editingSubscription ? 'Edit Subscription' : 'Add New Subscription'}
@@ -167,7 +169,7 @@ const Dashboard = () => {
             )}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

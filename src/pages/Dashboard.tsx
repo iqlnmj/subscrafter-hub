@@ -86,10 +86,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary/30">
+    <div className="min-h-screen bg-secondary/30 overflow-x-hidden">
       <Navbar />
       
-      <main className="container max-w-7xl mx-auto px-6 pt-24 pb-16">
+      <main className="container max-w-7xl mx-auto px-6 pt-24 pb-16 overflow-y-auto">
         <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold">Subscription Dashboard</h1>
